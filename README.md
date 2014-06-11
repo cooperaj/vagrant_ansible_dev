@@ -10,6 +10,33 @@ Requirements
 - virtualbox (https://www.virtualbox.org/wiki/Downloads)
 - ansible 1.6+ (http://docs.ansible.com/intro_installation.html#installing-the-control-machine)
 
+Packages Installed
+==================
+
+Installed via ansible roles:
+
+- mysql-server
+- python-mysqldb *(required by ansible)*
+- nodejs
+- npm
+- composer
+- nginx
+- php5-fpm
+- php5-cli
+
+The default configuration also installs:
+
+- git
+- beanstalkd
+- supervisor
+- php5-sqlite 
+- php5-mcrypt
+- php5-mysql
+- php5-sqlite
+- php5-xdebug
+- grunt-cli
+- bower
+
 Usage
 =====
 
