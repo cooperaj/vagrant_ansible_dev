@@ -1,0 +1,43 @@
+---
+
+- name: php | Install packages/s
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - php5-fpm
+    - php5-cli
+
+- name: php | Install php module/s
+  apt: pkg={{ item }} state=installed
+  with_items: php_packages
+
+- name: php | Remove default pool
+  file: path=/etc/php5/fpm/pool.d/www.conf state=absent
+  notify:
+    - restart php
+
+- name: php | PHP configuration
+  template:
+    src: php5-conf.j2
+    dest: "/etc/php5/fpm/conf.d/99-customconfig.ini"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart php
+
+- name: php | Pool configuration
+  template:
+    src: php5-fpm-pool.j2
+    dest: "/etc/php5/fpm/pool.d/allsites.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart php
+
+- name: php | Enable modules
+  command: /usr/sbin/php5enmod {{ item }} creates=/etc/php5/fpm/conf.d/20-{{ item }}.ini
+  with_items:
+    - mcrypt
+  notify:
+    - restart php

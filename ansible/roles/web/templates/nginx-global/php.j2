@@ -1,0 +1,20 @@
+# {{ ansible_managed }}
+
+location ~ \.php$ {
+  try_files $uri /index.php =404; 
+
+  fastcgi_split_path_info ^(.+\.php)(/.+)$;
+  #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+
+  fastcgi_read_timeout 20m;
+  fastcgi_keep_conn on;
+  fastcgi_pass 127.0.0.1:9000;
+  fastcgi_index index.php;
+  fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+  include fastcgi_params;
+}
+
+# mostly drupal based but with some changes to allow files I may push up for download
+location ~* \.(engine|inc|info|install|module|profile|theme|tpl\.php|xtmpl)$ {
+  deny all;
+}

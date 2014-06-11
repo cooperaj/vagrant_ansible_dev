@@ -1,0 +1,7 @@
+.DS_Store
+
+.vagrant
+local.yml
+
+ansible/roles/web/templates/vhosts/*
+!ansible/roles/web/templates/hosts/dev.local.j2

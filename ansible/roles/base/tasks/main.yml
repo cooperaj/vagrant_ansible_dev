@@ -1,0 +1,5 @@
+---
+
+- name: system | Install package/s
+  apt: pkg={{ item }} state=installed
+  with_items: sys_packages

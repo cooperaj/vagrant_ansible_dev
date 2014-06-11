@@ -1,0 +1,10 @@
+---
+
+- name: Vagrant Server for development
+  hosts: all
+  sudo: yes
+
+  roles:
+    - { role: base, tags: [ "base" ] }
+    - { role: web, tags: [ "web" ] }
+    - { role: db, tags: [ "db" ] }

@@ -1,0 +1,13 @@
+---
+
+- name: mysql | Install package/s
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - mysql-server
+    - python-mysqldb # needed for ansibles mysql support
+
+- name: mysql | Ensure MySql is running
+  action: service name=mysql state=started
+
+- name: mysql | Remove the test database
+  mysql_db: name=test state=absent

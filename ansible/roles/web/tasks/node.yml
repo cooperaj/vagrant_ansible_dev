@@ -1,0 +1,14 @@
+---
+
+- name: node | Install packages/s
+  apt: pkg={{ item }} state=installed
+  with_items:
+    - nodejs
+    - npm
+
+- name: node | Get it linked correctly
+  file: path=/usr/bin/node src=/usr/bin/nodejs state=link
+
+- name: node | Install Node packages/s
+  npm: name={{ item }} global=yes
+  with_items: node_packages

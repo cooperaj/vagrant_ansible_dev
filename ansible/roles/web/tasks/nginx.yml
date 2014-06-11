@@ -1,0 +1,36 @@
+---
+
+- name: nginx | Install package/s
+  apt: pkg=nginx state=installed
+
+- name: nginx | Custom configuration
+  template:
+    src: nginx-conf.j2
+    dest: "/etc/nginx/conf.d/dev.conf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart nginx
+
+- name: nginx | Create global definition folder
+  file: path=/etc/nginx/global state=directory 
+
+- name: nginx | Global definitions for vhost imports
+  template:
+    src: nginx-global/{{ item }}.j2
+    dest: "/etc/nginx/global/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - php
+    - wordpress
+    - restrictions
+  notify:
+    - reload nginx
+
+- name: nginx | Remove default vhost
+  file: path=/etc/nginx/sites-enabled/default state=absent
+  notify:
+    - reload nginx

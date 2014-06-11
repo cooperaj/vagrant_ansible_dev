@@ -1,0 +1,16 @@
+---
+
+- name: restart nginx
+  service: name=nginx state=restarted
+
+- name: reload nginx
+  service: name=nginx state=reloaded
+
+- name: restart php
+  service: name=php5-fpm state=restarted
+
+- name: reload php
+  service: name=php5-fpm state=reloaded
+
+- name: restart beanstalkd
+  service: name=beanstalkd state=restarted

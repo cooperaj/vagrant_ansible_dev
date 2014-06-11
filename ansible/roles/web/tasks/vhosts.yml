@@ -1,0 +1,22 @@
+---
+
+- name: vhost | Create nginx vhosts
+  template:
+    src: vhosts/{% if item.config is defined %}{{ item.config }}{% else %}dev.local.j2{% endif %}
+    dest: /etc/nginx/sites-available/{{ item.name }}
+    owner: root
+    group: root
+    mode: 0644
+  with_items: projects
+  tags: vhosts.config
+  notify:
+    - reload nginx
+
+- name: vhost | Enable nginx vhosts
+  file:
+    path=/etc/nginx/sites-enabled/{{ item.name }}
+    src=/etc/nginx/sites-available/{{ item.name }}
+    state=link
+  with_items: projects
+  notify:
+    - reload nginx

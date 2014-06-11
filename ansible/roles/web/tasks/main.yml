@@ -1,0 +1,8 @@
+---
+
+- include: nginx.yml tags=nginx
+- include: php-fpm.yml tags=php
+- include: composer.yml tags=composer
+- include: node.yml tags=node
+
+- include: vhosts.yml tags=vhosts
