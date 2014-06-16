@@ -13,6 +13,11 @@
   notify:
     - restart nginx
 
+- name: nginx | Configure nginx.conf
+  lineinfile: dest=/etc/nginx/nginx.conf regexp='sendfile on;' line='sendfile off;'
+  notify:
+    - restart nginx
+
 - name: nginx | Create global definition folder
   file: path=/etc/nginx/global state=directory 
 
