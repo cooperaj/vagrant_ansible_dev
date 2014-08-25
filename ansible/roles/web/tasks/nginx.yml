@@ -14,7 +14,7 @@
     - restart nginx
 
 - name: nginx | Configure nginx.conf
-  lineinfile: dest=/etc/nginx/nginx.conf regexp='sendfile on;' line='sendfile off;'
+  lineinfile: dest=/etc/nginx/nginx.conf regexp="sendfile" line="sendfile off;"
   notify:
     - restart nginx
 
