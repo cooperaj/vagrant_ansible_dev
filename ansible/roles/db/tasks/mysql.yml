@@ -6,6 +6,16 @@
     - mysql-server
     - python-mysqldb # needed for ansibles mysql support
 
+- name: mysql | Custom configuration
+  template:
+    src: custom.cnf.j2
+    dest: "/etc/mysql/conf.d/custom.cnf"
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart mysql
+
 - name: mysql | Ensure MySql is running
   action: service name=mysql state=started
 
