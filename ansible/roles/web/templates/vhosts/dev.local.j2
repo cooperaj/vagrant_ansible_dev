@@ -1,0 +1,20 @@
+# {{ ansible_managed }}
+
+server {
+  listen 80;
+  listen [::]:80;
+
+  server_name {{ item.name }};
+
+  access_log /var/log/nginx/access.log vhost_combined;
+
+  root /srv/projects/{{ item.docroot }};
+  index index.php index.html index.htm;
+
+  include global/restrictions.conf;
+  include global/php.conf;
+
+  location / {
+    try_files $uri $uri/ /index.php$is_args$args;
+  }
+}
