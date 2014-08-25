@@ -1,11 +1,12 @@
 ; {{ ansible_managed }}
 
+error_reporting = E_ALL
+display_errors = On
+display_startup_errors = On
+
 ; Increase our upload limits
 post_max_size = 0 ;unlimited
 upload_max_filesize = 32M
-
-; Hide PHP X-Powered-By
-expose_php = off
 
 ; Turn of CGI path info as we make nginx do the right thing.
 cgi.fix_pathinfo = 0
