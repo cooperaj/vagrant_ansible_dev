@@ -6,6 +6,8 @@ Vagrant.configure("2") do |config|
     config.vm.provider :virtualbox do |v|
         v.name = settings["vagrant"]["vm_name"]
         v.customize ["modifyvm", :id, "--memory", settings["vagrant"]["vm_memory"]]
+        v.customize ["modifyvm", :id, "--natdnsproxy1", "off"]
+        v.customize ["modifyvm", :id, "--natdnshostresolver1", "off"]
     end
 
     config.vm.box = "ubuntu/trusty64"
